@@ -37,7 +37,10 @@ class Pico {
 		else $file .= $ext;
 
 		if(file_exists($file)) $content = file_get_contents($file);
-		else $content = file_get_contents(CONTENT_DIR .'404.txt');
+		else {
+			$content = file_get_contents(CONTENT_DIR .'404.txt');
+			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+		}
 
 		$meta = $this->read_file_meta($content);
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
